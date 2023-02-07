@@ -21,4 +21,4 @@ public class AdminRestController {
         System.out.println(auth);
         return postService.register(post, text);
     }
-}
+}//f
