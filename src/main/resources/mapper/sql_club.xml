@@ -32,8 +32,7 @@
     </select>
 
     <select id="getByName" resultMap="result">
-        <include refid="sql_select"></include>
-        FROM club AS a
-        WHERE a.name LIKE("%#{name}%")
+        SELECT * FROM club
+        WHERE name LIKE CONCAT('%',#{name},'%')
     </select>
 </mapper>

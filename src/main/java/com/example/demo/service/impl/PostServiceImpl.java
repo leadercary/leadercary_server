@@ -51,9 +51,9 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Long register(Post post, String text) {
 		LocalDateTime now = LocalDateTime.now();
-		System.out.println(post + text + clubMapper.getByName(text));
 		post.setCreate_time(now);
 		post.setClub_idx(clubMapper.getByName(text).getIdx());
+		System.out.println(post);
 		return postMapper.register(post);
 	}
 }
