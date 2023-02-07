@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.JwtTokenProvider;
 import com.example.demo.SecurityConfig;
 import com.example.demo.domain.User;
 import com.example.demo.mapper.UserMapper;
@@ -10,56 +11,53 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-
 	private final UserMapper userMapper;
 	private final PasswordEncoder passwordEncoder;
+	private final JwtTokenProvider jwtTokenProvider;
 
-	@Override
 	public User get(Long idx) {
-		return userMapper.get(idx);
+		return this.userMapper.get(idx);
 	}
 
-	@Override
 	public User get(String identity) {
-		return userMapper.getByIdentity(identity);
+		return this.userMapper.getByIdentity(identity);
 	}
-	
-	@Override
+
 	public String register(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user.setAccess("wait");
 		LocalDate now = LocalDate.now();
 		user.setLast_time(now);
-		userMapper.register(user);
+		this.userMapper.register(user);
 		return user.getIdentity();
 	}
 
-	@Override
 	public String login(User user) {
-		if(passwordEncoder.matches(user.getPassword(), userMapper.getByIdentity(user.getIdentity()).getPassword())) {
-			user = userMapper.getByIdentity(user.getIdentity());
-			String userToken = SecurityConfig.CreateToken(user.getIdentity(), user.getAccess());
-
+		if (this.passwordEncoder.matches(user.getPassword(), this.userMapper.getByIdentity(user.getIdentity()).getPassword())) {
+			user = this.userMapper.getByIdentity(user.getIdentity());
+			String userToken = jwtTokenProvider.createToken(user.getIdentity(), user.getAccess());
 			LocalDate now = LocalDate.now();
 			user.setLast_time(now);
-			userMapper.updateAccessByIdentity(user);
-
+			this.userMapper.updateAccessByIdentity(user);
 			return userToken;
 		} else {
 			return "err";
 		}
 	}
 
-	@Override
 	public void update(User user) {
-		userMapper.update(user);
+		this.userMapper.update(user);
 	}
 
-	@Override
 	public void withdraw(Long idx) {
-		userMapper.delete(idx);
+		this.userMapper.delete(idx);
+	}
+
+	public UserServiceImpl(final UserMapper userMapper, final PasswordEncoder passwordEncoder, final JwtTokenProvider jwtTokenProvider) {
+		this.userMapper = userMapper;
+		this.passwordEncoder = passwordEncoder;
+		this.jwtTokenProvider = jwtTokenProvider;
 	}
 }
