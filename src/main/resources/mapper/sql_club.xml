@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.ClubMapper">
+
+    <resultMap type="com.example.demo.domain.Club" id="result">
+        <result property="idx" column="idx" />
+        <result property="user_idx" column="user_idx" />
+        <result property="logo" column="logo" />
+        <result property="name" column="name" />
+    </resultMap>
+
+    <sql id="sql_select">
+        SELECT
+            a.idx
+             , a.user_idx
+             , a.logo
+             , a.name
+    </sql>
+
+    <select id="get" resultMap="result">
+        <include refid="sql_select"></include>
+        FROM club AS a
+        WHERE a.idx = #{idx}
+    </select>
+
+    <select id="getByUser" resultMap="result">
+        <include refid="sql_select"></include>
+        FROM club AS a
+        WHERE a.user_idx = #{user_idx}
+    </select>
+
+    <select id="getByName" resultMap="result">
+        <include refid="sql_select"></include>
+        FROM club AS a
+        WHERE a.name = #{name}
+    </select>
+</mapper>
