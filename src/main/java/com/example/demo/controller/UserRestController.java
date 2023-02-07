@@ -19,15 +19,9 @@ public class UserRestController {
     private String create_user(@RequestBody User user) {
         return userService.register(user);
     }
-    @PostMapping("/remember")
-    @ApiOperation(value = "getter", notes = "토큰을 대조합니다. 같으면 다시 시간만 갱신합니다.")
-    private String remember(@RequestBody User user) {
-        return userService.renewal(user);
-    }
     @PostMapping("/signin")
     @ApiOperation(value = "getter", notes = "토큰이 없거나 만료될시 다시 로그인을 시도할때 사용됩니다.")
-    private String sginin(@RequestBody User user, @RequestHeader(value = "Authorization") String auth) {
-        System.out.println(auth);
+    private String sginin(@RequestBody User user) {
         return userService.login(user);
     }
 }

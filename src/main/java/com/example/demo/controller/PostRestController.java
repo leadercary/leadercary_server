@@ -17,12 +17,6 @@ public class PostRestController {
 
     private final PostService postService;
 
-    @PostMapping("/create")
-    @ApiOperation(value = "getter", notes = "새로운 포스트 정보를 업로드합니다.")
-    private Long uploud(@RequestBody Post post,@RequestParam(value = "text") String text, @RequestHeader(value = "Authorization") String auth ) {
-        System.out.println(auth);
-        return postService.register(post, text);
-    }
     @PostMapping("/search")
     @ApiOperation(value = "getter", notes = "개시물 정보를 검색합니다.")
     private List<Post> search(@RequestParam(value = "text") String text) {

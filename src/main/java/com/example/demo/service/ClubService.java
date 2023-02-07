@@ -21,9 +21,9 @@ public interface ClubService {
 	public Club get(String name);
 
 	/**
-	 * 주어진 사용자 이름을 가진 동아리 정보를 되돌린다.
+	 * 주어진 user_idx를 가진 동아리 정보를 되돌린다.
 	 *
-	 * @param name name
+	 * @param user_idx user_idx
 	 * @return 동아리 정보
 	 */
 	public Club getByUser(String user_idx);

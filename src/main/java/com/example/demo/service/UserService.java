@@ -29,14 +29,6 @@ public interface UserService {
 	public String register(User user);
 
 	/**
-	 * 만료일을 갱신한다.
-	 *
-	 * @param user 사용자 정보
-	 * @return 토큰
-	 */
-	public String renewal(User user);
-
-	/**
 	 * 토큰과 만료일을 갱신한다.
 	 *
 	 * @param user 사용자 정보

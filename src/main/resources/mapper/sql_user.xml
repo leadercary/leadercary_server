@@ -8,8 +8,8 @@
         <result property="idx" column="idx" />
         <result property="identity" column="identity" />
         <result property="password" column="password" />
-        <result property="remember" column="remember" />
-        <result property="remember_time" column="remember_time" />
+        <result property="access" column="access" />
+        <result property="last_time" column="last_time" />
     </resultMap>
 
     <sql id="sql_select">
@@ -17,8 +17,8 @@
             a.idx
              , a.identity
              , a.password
-             , a.remember
-             , a.remember_time
+             , a.access
+             , a.last_time
     </sql>
 
     <select id="get" resultMap="result">
@@ -41,16 +41,16 @@
               idx
             , identity
             , password
-            , remember
-            , remember_time
+            , access
+            , last_time
         )
         VALUES
         (
               #{idx}
             , #{identity}
             , #{password}
-            , #{remember}
-            , #{remember_time}
+            , #{access}
+            , #{last_time}
         );
     </insert>
 
@@ -59,16 +59,16 @@
         UPDATE user SET
             identity = #{identity}
           , password = #{password}
-          , remember = #{remember}
-          , remember_time = #{remember_time}
+          , access = #{access}
+          , last_time = #{last_time}
         WHERE idx = #{idx}
     </update>
 
-    <update id="updateRememberByIdentity" parameterType="com.example.demo.domain.User">
+    <update id="updateAccessByIdentity" parameterType="com.example.demo.domain.User">
 
         UPDATE user SET
-            remember = #{remember}
-          , remember_time = #{remember_time}
+            access = #{access}
+          , last_time = #{last_time}
         WHERE identity = #{identity}
     </update>
 

@@ -58,14 +58,9 @@ public class PostServiceImpl implements PostService {
 		List<Post> list = new ArrayList<>();
 		List<Post> plist = new ArrayList<>();
 		list.addAll(postMapper.getByClub(clubMapper.getByName(text).getIdx()));
-		System.out.println(list);
-		plist.addAll(postMapper.getByText(text));
-		System.out.println(plist);
+		list.addAll(postMapper.getByText(text));
 
 		Collections.sort(list, new PostComparator().reversed());
-		System.out.println(list);
-		Collections.sort(plist, new PostComparator().reversed());
-		System.out.println(plist);
 
 		list.addAll(plist);
 

@@ -42,7 +42,7 @@ public interface UserMapper {
      * 사용자의 토큰 관련 정보를 갱신한다.
      * @param user 사용자 정보
      */
-    public void updateRememberByIdentity(User user);
+    public void updateAccessByIdentity(User user);
 
     /**
      * 주어진 idx를 가진 회원을 삭제한다.

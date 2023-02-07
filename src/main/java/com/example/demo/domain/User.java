@@ -26,12 +26,12 @@ public class User {
     private String password;
 
     /**
-     * 저장된 토큰
+     * 권한
      */
-    private String remember;
+    private String access;
 
     /**
-     * 토큰 만료 시간
+     * 최종 접속 시간
      */
-    private LocalDate remember_time;
+    private LocalDate last_time;
 }
