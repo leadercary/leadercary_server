@@ -1,0 +1,74 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.PostMapper">
+
+    <resultMap type="com.example.demo.domain.Post" id="result">
+        <result property="idx" column="idx" />
+        <result property="club_idx" column="club_idx" />
+        <result property="title" column="title" />
+        <result property="detail" column="detail" />
+        <result property="create_time" column="create_time" />
+        <result property="view" column="view" />
+    </resultMap>
+
+    <sql id="sql_select">
+        SELECT
+            a.idx
+             , a.club_idx
+             , a.title
+             , a.detail
+             , a.create_time
+             , a.view
+    </sql>
+
+    <select id="get" resultMap="result">
+        <include refid="sql_select"></include>
+        FROM post AS a
+        WHERE a.idx = #{idx}
+    </select>
+
+    <insert id="register" parameterType="com.example.demo.domain.Post"
+            keyProperty="idx">
+        INSERT INTO post
+        (
+              idx
+            , club_idx
+            , title
+            , detail
+            , create_time
+            , view
+        )
+        VALUES
+        (
+              #{idx}
+            , #{club_idx}
+            , #{title}
+            , #{detail}
+            , #{create_time}
+            , #{view}
+        );
+    </insert>
+
+    <select id="getByText" resultMap="result">
+        SELECT * FROM post
+        WHERE detail LIKE CONCAT('%',#{text},'%')
+    </select>
+
+    <select id="getByClub" resultMap="result">
+        SELECT * FROM post
+        WHERE club_idx = #{club_idx}
+    </select>
+
+    <select id="getByClubName" resultMap="result">
+        SELECT *, (SELECT name FROM club where post.club_idx = club.idx) as name FROM post
+        WHERE club_idx = #{club_idx}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM post
+        WHERE idx = #{idx}
+    </delete>
+
+</mapper>
