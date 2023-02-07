@@ -21,4 +21,11 @@ public class AdminRestController {
         System.out.println(auth);
         return postService.register(post, text);
     }
+
+    @PostMapping("/delete")
+    @ApiOperation(value = "getter", notes = "포스트 정보를 제거합니다.")
+    private Long delete(@RequestParam(value = "idx") Long idx, @RequestHeader(value = "Authorization") String auth ) {
+        System.out.println(auth);
+        return postService.Delete(idx);
+    }
 }

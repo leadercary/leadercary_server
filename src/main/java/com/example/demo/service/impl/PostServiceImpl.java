@@ -32,9 +32,26 @@ public class PostServiceImpl implements PostService {
 		return postMapper.get(idx);
 	}
 
+	/**
+	 * 주어진 club_idx를 가진 개시물 정보를 되돌린다.
+	 *
+	 * @param club_idx club_idx
+	 * @return 개시물 정보
+	 */
 	@Override
 	public List<Post> getByClub(Long club_idx) {
 		return postMapper.getByClub(club_idx);
+	}
+
+	/**
+	 * 주어진 club_idx를 가진 개시물 정보를 되돌린다.
+	 *
+	 * @param club_idx club_idx
+	 * @return 개시물 정보
+	 */
+	@Override
+	public List<Post> getByClubName(Long club_idx) {
+		return postMapper.getByClubName(club_idx);
 	}
 
 	/**
@@ -57,7 +74,7 @@ public class PostServiceImpl implements PostService {
 	public List<Post> search(String text) {
 		List<Post> list = new ArrayList<>();
 		List<Post> plist = new ArrayList<>();
-		list.addAll(postMapper.getByClub(clubMapper.getByName(text).getIdx()));
+		list.addAll(postMapper.getByClubName(clubMapper.getByName(text).getIdx()));
 		list.addAll(postMapper.getByText(text));
 
 		Collections.sort(list, new PostComparator().reversed());
@@ -79,6 +96,18 @@ public class PostServiceImpl implements PostService {
 		post.setCreate_time(now);
 		post.setClub_idx(clubMapper.getByName(text).getIdx());
 		return postMapper.register(post);
+	}
+
+	/**
+	 * 주어진 idx을 가진 개시물을 삭제한다.
+	 *
+	 * @param idx idx
+	 * @return 개시물 idx
+	 */
+	@Override
+	public Long Delete(Long idx) {
+		postMapper.delete(idx);
+		return idx;
 	}
 
 	public class PostComparator implements Comparator<Post> {

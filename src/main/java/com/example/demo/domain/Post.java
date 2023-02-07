@@ -41,4 +41,9 @@ public class Post {
      * 조회수
      */
     private Long view;
+
+    /**
+     * 동아리명
+     */
+    private String name;
 }

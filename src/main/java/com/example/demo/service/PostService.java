@@ -24,6 +24,14 @@ public interface PostService {
 	public List<Post> getByClub(Long club_idx);
 
 	/**
+	 * 주어진 club_idx를 가진 개시물 정보를 되돌린다.
+	 *
+	 * @param club_idx club_idx
+	 * @return 개시물 정보
+	 */
+	public List<Post> getByClubName(Long club_idx);
+
+	/**
 	 * 주어진 키워드가 제목에 포함된 개시물 정보를 되돌린다.
 	 * 
 	 * @param text text
@@ -38,6 +46,14 @@ public interface PostService {
 	 * @return 사용자 정보
 	 */
 	public List<Post> search(String text);
+
+	/**
+	 * 주어진 idx을 가진 개시물을 삭제한다.
+	 *
+	 * @param idx idx
+	 * @return 개시물 idx
+	 */
+	public Long Delete(Long idx);
 
 	/**
 	 * 개시물을 등록한다.

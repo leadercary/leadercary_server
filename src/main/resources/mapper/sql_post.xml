@@ -61,4 +61,14 @@
         WHERE club_idx = #{club_idx}
     </select>
 
+    <select id="getByClubName" resultMap="result">
+        SELECT *, (SELECT name FROM club where post.club_idx = club.idx) as name FROM post
+        WHERE club_idx = #{club_idx}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM post
+        WHERE idx = #{idx}
+    </delete>
+
 </mapper>
