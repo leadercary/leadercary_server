@@ -19,7 +19,7 @@ public interface ImageMapper {
     public Image get(@Param("idx") Long idx);
 
     /**
-     * 사용자를 등록한다.
+     * 이미지를 등록한다.
      *
      * @param image image
      * @return 이미지의 idx

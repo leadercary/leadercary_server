@@ -19,10 +19,10 @@ public interface ClubMapper {
     /**
      * 주어진 이름을 가진 동아리 정보를 되돌린다.
      *
-     * @param name name
+     * @param text text
      * @return 동아리 정보
      */
-    public Club getByName(@Param("name") String name);
+    public Club getByName(@Param("text") String text);
 
     /**
      * 주어진 사용자 이름을 가진 동아리 정보를 되돌린다.

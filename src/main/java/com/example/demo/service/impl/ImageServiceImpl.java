@@ -41,7 +41,7 @@ public class ImageServiceImpl implements ImageService {
 	}
 	
 	/**
-	 * 사진 정보를 압로드 한다.
+	 * 사진 정보를 업로드 한다.
 	 *
 	 * @param image 사진 정보
 	 * @return 사진 정보
@@ -49,8 +49,9 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public String upload(@RequestParam("image") MultipartFile image) throws Exception {
 		String imagePath = null;
+		String importData = null;
 		String absolutePath = new File("").getAbsolutePath() + "\\";
-		String path = "build\\resources\\main\\file\\images";
+		String path = "src\\main\\resources\\file\\images";
 		File file = new File(path);
 		if (!file.exists()) {
 			file.mkdirs();
@@ -71,19 +72,20 @@ public class ImageServiceImpl implements ImageService {
 				}
 			}
 			LocalDateTime now = LocalDateTime.now();
-			imagePath = path + "\\" + now.format(DateTimeFormatter.ofPattern("yyyyMMDDHHmmssnnnn")) + originalFileExtension;
+			importData = now.format(DateTimeFormatter.ofPattern("yyyyMMDDHHmmssnnnn")) + originalFileExtension;
+			imagePath = path + "\\" + importData;
 			file = new File(absolutePath + imagePath);
 			image.transferTo(file);
 			Image res = new Image();
-			res.setSize(Files.size(Paths.get(absolutePath + imagePath)));
-			res.setPath(absolutePath + imagePath);
+			res.setSize(Files.size(Paths.get(imagePath)));
+			res.setPath(importData);
 			register(res);
 		}
 		else {
 			return "이미지 파일이 비어있습니다.";
 		}
 
-		return imagePath;
+		return importData;
 	}
 
 	/**
@@ -94,8 +96,8 @@ public class ImageServiceImpl implements ImageService {
 	 */
 	@Override
 	public String download(Long idx) throws Exception {
-		imageMapper.get(idx).getPath();
-		return "";
+		File file = new File(imageMapper.get(idx).getPath());
+		return file.toString();
 	}
 
 	/**

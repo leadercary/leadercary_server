@@ -22,10 +22,4 @@ public class ImageRestController {
     private String uploud(MultipartFile image) throws Exception {
         return imageService.upload(image);
     }
-
-    @PostMapping("/download")
-    @ApiOperation(value = "getter", notes = "새로운 사진 정보를 업로드합니다.")
-    private String download(@RequestParam(value = "idx") Long idx) throws Exception {
-        return imageService.download(idx);
-    }
 }
