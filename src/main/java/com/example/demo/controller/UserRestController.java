@@ -26,7 +26,8 @@ public class UserRestController {
     }
     @PostMapping("/signin")
     @ApiOperation(value = "getter", notes = "토큰이 없거나 만료될시 다시 로그인을 시도할때 사용됩니다.")
-    private String sginin(@RequestBody User user) {
+    private String sginin(@RequestBody User user, @RequestHeader(value = "Authorization") String auth) {
+        System.out.println(auth);
         return userService.login(user);
     }
 }

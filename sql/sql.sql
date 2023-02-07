@@ -4,7 +4,9 @@ use carry;
 create table user(
     idx int(8) primary key not null auto_increment,
     identity varchar(128) unique NOT NULL,
-    password varchar(256) NOT NULL
+    password varchar(256) NOT NULL,
+    remember varchar(64) default null,
+    remember_time datatime default null
 );
 create table image(
     idx int(8) primary key not null auto_increment,
