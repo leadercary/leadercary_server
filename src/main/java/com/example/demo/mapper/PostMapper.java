@@ -20,12 +20,12 @@ public interface PostMapper {
     public Post get(@Param("idx") Long idx);
 
     /**
-     * 주어진 idx을 가진 개시물 정보를 되돌린다.
+     * 주어진 텍스트를 가진 개시물 정보를 되돌린다.
      *
      * @param text text
      * @return list<개시물>
      */
-    public List<Post> getByText(String text);
+    public List<Post> getByText(@Param("text") String text);
 
     /**
      * 주어진 idx을 가진 개시물 정보를 되돌린다.

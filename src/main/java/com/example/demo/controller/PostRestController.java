@@ -24,7 +24,7 @@ public class PostRestController {
     }
     @PostMapping("/search")
     @ApiOperation(value = "getter", notes = "개시물 정보를 검색합니다.")
-    private List<Post> search(String text) {
-        return postService.getByText(text);
+    private List<Post> search(@RequestParam(value = "text") String text) {
+        return postService.search(text);
     }
 }

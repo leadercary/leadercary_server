@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -32,7 +33,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	/**
-	 * 주어진 키워드가 포함된 개시물 정보를 되돌린다.
+	 * 주어진 키워드가 제목에 포함된 개시물 정보를 되돌린다.
 	 * 
 	 * @param text text
 	 * @return 사용자 정보
@@ -40,6 +41,19 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> getByText(String text) {
 		return postMapper.getByText(text);
+	}
+	
+	/**
+	 * 주어진 키워드가 포함된 개시물 정보를 되돌린다.
+	 *
+	 * @param text text
+	 * @return 사용자 정보
+	 */
+	public List<Post> search(String text) {
+		List<Post> list = new ArrayList<>();
+		list.addAll(postMapper.getByText(text));
+
+		return list;
 	}
 
 	/**
@@ -53,7 +67,6 @@ public class PostServiceImpl implements PostService {
 		LocalDateTime now = LocalDateTime.now();
 		post.setCreate_time(now);
 		post.setClub_idx(clubMapper.getByName(text).getIdx());
-		System.out.println(post);
 		return postMapper.register(post);
 	}
 }

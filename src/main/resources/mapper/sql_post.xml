@@ -51,4 +51,9 @@
         );
     </insert>
 
+    <select id="getByText" resultMap="result">
+        SELECT * FROM post
+        WHERE detail LIKE CONCAT('%',#{text},'%')
+    </select>
+
 </mapper>

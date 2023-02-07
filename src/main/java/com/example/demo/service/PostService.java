@@ -16,12 +16,20 @@ public interface PostService {
 	public Post get(Long idx);
 
 	/**
-	 * 주어진 키워드가 포함된 개시물 정보를 되돌린다.
+	 * 주어진 키워드가 제목에 포함된 개시물 정보를 되돌린다.
 	 * 
 	 * @param text text
 	 * @return 사용자 정보
 	 */
 	public List<Post> getByText(String text);
+
+	/**
+	 * 주어진 키워드가 포함된 개시물 정보를 되돌린다.
+	 *
+	 * @param text text
+	 * @return 사용자 정보
+	 */
+	public List<Post> search(String text);
 
 	/**
 	 * 개시물을 등록한다.
