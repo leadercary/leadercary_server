@@ -16,6 +16,14 @@ public interface PostService {
 	public Post get(Long idx);
 
 	/**
+	 * 주어진 club_idx를 가진 개시물 정보를 되돌린다.
+	 *
+	 * @param club_idx club_idx
+	 * @return 개시물 정보
+	 */
+	public List<Post> getByClub(Long club_idx);
+
+	/**
 	 * 주어진 키워드가 제목에 포함된 개시물 정보를 되돌린다.
 	 * 
 	 * @param text text

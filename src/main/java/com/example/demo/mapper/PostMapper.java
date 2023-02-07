@@ -20,6 +20,14 @@ public interface PostMapper {
     public Post get(@Param("idx") Long idx);
 
     /**
+     * 주어진 idx을 가진 개시물 정보를 되돌린다.
+     *
+     * @param club_idx club_idx
+     * @return 개시물 정보
+     */
+    public List<Post> getByClub(@Param("club_idx") Long club_idx);
+
+    /**
      * 주어진 텍스트를 가진 개시물 정보를 되돌린다.
      *
      * @param text text

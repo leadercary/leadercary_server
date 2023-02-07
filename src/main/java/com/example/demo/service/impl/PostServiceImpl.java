@@ -1,18 +1,18 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.domain.Post;
-import com.example.demo.domain.User;
 import com.example.demo.mapper.ClubMapper;
 import com.example.demo.mapper.PostMapper;
 import com.example.demo.service.PostService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -30,6 +30,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post get(Long idx) {
 		return postMapper.get(idx);
+	}
+
+	@Override
+	public List<Post> getByClub(Long club_idx) {
+		return postMapper.getByClub(club_idx);
 	}
 
 	/**
@@ -51,7 +56,18 @@ public class PostServiceImpl implements PostService {
 	 */
 	public List<Post> search(String text) {
 		List<Post> list = new ArrayList<>();
-		list.addAll(postMapper.getByText(text));
+		List<Post> plist = new ArrayList<>();
+		list.addAll(postMapper.getByClub(clubMapper.getByName(text).getIdx()));
+		System.out.println(list);
+		plist.addAll(postMapper.getByText(text));
+		System.out.println(plist);
+
+		Collections.sort(list, new PostComparator().reversed());
+		System.out.println(list);
+		Collections.sort(plist, new PostComparator().reversed());
+		System.out.println(plist);
+
+		list.addAll(plist);
 
 		return list;
 	}
@@ -68,5 +84,13 @@ public class PostServiceImpl implements PostService {
 		post.setCreate_time(now);
 		post.setClub_idx(clubMapper.getByName(text).getIdx());
 		return postMapper.register(post);
+	}
+
+	public class PostComparator implements Comparator<Post> {
+		@Override
+		public int compare(Post post1, Post post2) {
+			return Long.valueOf(java.sql.Timestamp.valueOf(post1.getCreate_time()).getTime())
+					.compareTo(java.sql.Timestamp.valueOf(post2.getCreate_time()).getTime());
+		}
 	}
 }

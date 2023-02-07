@@ -56,4 +56,9 @@
         WHERE detail LIKE CONCAT('%',#{text},'%')
     </select>
 
+    <select id="getByClub" resultMap="result">
+        SELECT * FROM post
+        WHERE club_idx = #{club_idx}
+    </select>
+
 </mapper>
