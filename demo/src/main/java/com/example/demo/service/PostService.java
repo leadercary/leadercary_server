@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.domain.Post;
 import com.example.demo.domain.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface PostService {
@@ -46,4 +48,18 @@ public interface PostService {
 	 * @return idx
 	 */
 	public Long register(Post post, String text);
+
+	/**
+	 * 주어진 idx을 가진 포스터를 삭제 처리한다.
+	 *
+	 * @param idx idx
+	 */
+	public Long delete(Long idx);
+
+	/**
+	 * 주어진 idx을 가진 포스터를 열람 처리한다.
+	 *
+	 * @param idx idx
+	 */
+	public Post View(Long idx);
 }

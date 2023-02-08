@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -21,5 +23,11 @@ public class PostRestController {
     @ApiOperation(value = "getter", notes = "개시물 정보를 검색합니다.")
     private List<Post> search(@RequestParam(value = "text") String text) {
         return postService.search(text);
+    }
+
+    @PostMapping("/view")
+    @ApiOperation(value = "getter", notes = "개시물 정보를 가져옵니다.")
+    private Post view(@RequestParam(value = "idx") Long idx) {
+        return postService.View(idx);
     }
 }

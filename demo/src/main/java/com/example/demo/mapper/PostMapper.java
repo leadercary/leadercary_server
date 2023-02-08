@@ -42,4 +42,16 @@ public interface PostMapper {
      * @return 개시물 idx
      */
     public Long register(Post post);
+
+    /**
+     * 주어진 idx를 가진 포스터를 삭제한다.
+     * @param idx idx
+     */
+    public void delete(@Param("idx") Long idx);
+
+    /**
+     * 주어진 idx를 가진 포스터의 뷰어를 증가한다.
+     * @param idx idx
+     */
+    public void addView(@Param("idx") Long idx);
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.IntroduceMapper">
+
+    <resultMap type="com.example.demo.domain.Introduce" id="result">
+        <result property="idx" column="idx" />
+        <result property="detail" column="detail" />
+        <result property="leader" column="leader" />
+        <result property="members" column="members" />
+    </resultMap>
+
+    <sql id="sql_select">
+        SELECT
+            a.idx
+             , a.detail
+             , a.leader
+             , a.members
+    </sql>
+
+    <select id="get" resultMap="result">
+        <include refid="sql_select"></include>
+        FROM introduce AS a
+        WHERE a.idx = #{idx}
+    </select>
+</mapper>

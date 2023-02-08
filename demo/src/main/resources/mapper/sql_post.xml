@@ -38,7 +38,6 @@
             , title
             , detail
             , create_time
-            , view
         )
         VALUES
         (
@@ -47,7 +46,6 @@
             , #{title}
             , #{detail}
             , #{create_time}
-            , #{view}
         );
     </insert>
 
@@ -60,5 +58,16 @@
         SELECT * FROM post
         WHERE club_idx = #{club_idx}
     </select>
+
+    <update id="addView" parameterType="com.example.demo.domain.Post">
+        UPDATE post SET
+            view = (view + 1)
+            WHERE idx = #{idx};
+    </update>
+
+    <delete id="delete">
+        DELETE FROM post
+        WHERE idx = #{idx}
+    </delete>
 
 </mapper>

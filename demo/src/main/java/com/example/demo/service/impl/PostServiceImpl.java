@@ -7,6 +7,10 @@ import com.example.demo.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sound.sampled.Port;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,14 +61,15 @@ public class PostServiceImpl implements PostService {
 	public List<Post> search(String text) {
 		List<Post> list = new ArrayList<>();
 		List<Post> plist = new ArrayList<>();
-		list.addAll(postMapper.getByClub(clubMapper.getByName(text).getIdx()));
+		list.addAll(postMapper.getByClub(clubMapper.getByNames(text).getIdx()));
 		list.addAll(postMapper.getByText(text));
 
 		Collections.sort(list, new PostComparator().reversed());
 
 		list.addAll(plist);
+		List<Post> lists = list.stream().distinct().collect(Collectors.toList());
 
-		return list;
+		return lists;
 	}
 
 	/**
@@ -77,8 +82,19 @@ public class PostServiceImpl implements PostService {
 	public Long register(Post post, String text) {
 		LocalDateTime now = LocalDateTime.now();
 		post.setCreate_time(now);
-		post.setClub_idx(clubMapper.getByName(text).getIdx());
+		post.setClub_idx(clubMapper.getByNames(text).getIdx());
 		return postMapper.register(post);
+	}
+
+	/**
+	 * 주어진 idx을 가진 포스터를 삭제 처리한다.
+	 *
+	 * @param idx idx
+	 */
+	@Override
+	public Long delete(Long idx) {
+		postMapper.delete(idx);
+		return idx;
 	}
 
 	public class PostComparator implements Comparator<Post> {
@@ -87,5 +103,17 @@ public class PostServiceImpl implements PostService {
 			return Long.valueOf(java.sql.Timestamp.valueOf(post1.getCreate_time()).getTime())
 					.compareTo(java.sql.Timestamp.valueOf(post2.getCreate_time()).getTime());
 		}
+	}
+
+	/**
+	 * 주어진 idx을 가진 포스터를 열람 처리한다.
+	 *
+	 * @param idx idx
+	 */
+	@Override
+	public Post View(Long idx) {
+		postMapper.addView(idx);
+		Post post = postMapper.get(idx);
+		return post;
 	}
 }

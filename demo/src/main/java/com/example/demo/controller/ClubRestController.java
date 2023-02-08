@@ -20,4 +20,10 @@ public class ClubRestController {
     private Object get(@RequestParam(name = "idx") Long idx) {
         return clubService.get(idx);
     }
+
+    @PostMapping("/getname")
+    @ApiOperation(value = "getter", notes = "이름을 소지하는 club 정보를 모두 불러옵니다.")
+    private Object getName(@RequestParam(name = "name") String name) {
+        return clubService.getName(name);
+    }
 }

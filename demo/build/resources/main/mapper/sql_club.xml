@@ -20,7 +20,7 @@
     </sql>
 
     <select id="get" resultMap="result">
-        <include refid="sql_select"></include>
+        SELECT *
         FROM club AS a
         WHERE a.idx = #{idx}
     </select>
@@ -32,7 +32,14 @@
     </select>
 
     <select id="getByName" resultMap="result">
+        SELECT *
+        FROM club INNER JOIN introduce
+                             ON club.idx = introduce.idx
+        WHERE club.name LIKE CONCAT('%',#{name},'%')
+    </select>
+
+    <select id="getByNames" resultMap="result">
         SELECT * FROM club
-        WHERE name LIKE CONCAT('%',#{name},'%')
+        WHERE name LIKE CONCAT('%',#{text},'%')
     </select>
 </mapper>

@@ -25,7 +25,7 @@ import java.util.Date;
 
 @RequiredArgsConstructor
 @Component
-public class JwtTokenProvider extends GenericFilterBean {
+public class JwtTokenProvider {
     private String secretKey = "sjanglaemfdjdy";
 
     private long tokenValidTime = 48 * 60 * 60 * 1000L;  //48시간
@@ -61,7 +61,7 @@ public class JwtTokenProvider extends GenericFilterBean {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        return request.getHeader("Authorization");
     }
 
     // 토큰의 상태 확인
@@ -72,15 +72,5 @@ public class JwtTokenProvider extends GenericFilterBean {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = resolveToken((HttpServletRequest) request);
-        if (token != null && validateToken(token)) {
-            Authentication authentication = getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-        chain.doFilter(request, response);
     }
 }

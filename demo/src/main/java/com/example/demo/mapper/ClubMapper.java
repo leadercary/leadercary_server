@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 
 import com.example.demo.domain.Club;
+import com.example.demo.domain.Post;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 
@@ -22,7 +23,15 @@ public interface ClubMapper {
      * @param text text
      * @return 동아리 정보
      */
-    public Club getByName(@Param("text") String text);
+    public Object getByName(@Param("text") String text);
+
+    /**
+     * 주어진 이름을 가진 동아리 정보를 되돌린다.
+     *
+     * @param text text
+     * @return 동아리 정보
+     */
+    public Club getByNames(@Param("text") String text);
 
     /**
      * 주어진 사용자 이름을 가진 동아리 정보를 되돌린다.
